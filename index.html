@@ -343,7 +343,7 @@
 <li>基本数据类型不能用equals比较，但可以使用其对应包装类（即引用数据类型）来比较，且比较的是存放的值</li>
 <li><p>普通引用数据类型源码调用的实质为”==”，可以其查看源码为</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public boolean equals(Object obj)</span><br><span class="line">&#123;</span><br><span class="line">	return (this == obj);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><br><br>但很多类重写了该方法，如String，重写后比较的是存放的值</p>
+<p>但很多类重写了该方法，如String，重写后比较的是存放的值</p>
 </li>
 </ul>
 </li>
@@ -415,7 +415,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/12/27/hello-world/" itemprop="url">Hello World</a></h1>
+                <a class="post-title-link" href="/2017/12/27/hello-world/" itemprop="url">使用Hexo+GitHub搭建博客</a></h1>
         
 
         <div class="post-meta">
@@ -467,7 +467,16 @@
       
         
           
-            
+            <ol>
+<li><p>新建一个名为你的用户名.github.io的仓库，比如说，如果你的github用户名是test，那么你就新建test.github.io的仓库（必须是你的用户名，其它名称无效），将来你的网站访问地址就是 <a href="http://test.github.io" target="_blank" rel="noopener">http://test.github.io</a> 了，是不是很方便？</p>
+</li>
+<li><p>配置SSH key<br>ssh-keygen -t rsa -C “邮件地址”<br>然后连续3次回车，最终会生成一个文件在用户目录下，打开用户目录，找到.ssh\id_rsa.pub文件，记事本打开并复制里面的内容，打开你的github主页，进入个人设置 -&gt; SSH and GPG keys -&gt; New SSH key<br>将刚复制的内容粘贴到key那里，title随便填，保存</p>
+</li>
+<li><p>Hexo</p>
+</li>
+</ol>
+<p>安装hexo<br><figure class="highlight plain"><figcaption><span>npm install -g hexo```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">初始化</span><br><span class="line">```$ hexo init</span><br></pre></td></tr></table></figure></p>
+
           
         
       
