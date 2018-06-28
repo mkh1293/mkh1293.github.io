@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="广播接收者Broadcast Receiver分别有静态注册和动态注册两种使用方式:  静态注册：在AndroidManifest.xml文件中进行注册，当App退出后，Receiver仍然可以接收到广播并且进行相应的处理 动态注册：在代码中动态注册，当App退出后，就没办法再接受广播  静态注册AndroidMainfest.xml配置123456&amp;lt;receiver android:nam">
+<meta name="description" content="相关权限     相关方法  判断SD卡是否存在 123456789/** * 判断SDCard是否存在 [当没有外挂SD卡时，内置ROM也被识别为存在sd卡] *  * @return */public static boolean isSDCardExist() &amp;#123;	return Environment.getExternalStorageState().equals(			Envi">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Broadcast Receiver的使用">
-<meta property="og:url" content="http://yoursite.com/2017/03/04/post4/index.html">
+<meta property="og:title" content="SD卡的读写操作">
+<meta property="og:url" content="http://yoursite.com/2017/03/05/post6/index.html">
 <meta property="og:site_name" content="程序猿的窝">
-<meta property="og:description" content="广播接收者Broadcast Receiver分别有静态注册和动态注册两种使用方式:  静态注册：在AndroidManifest.xml文件中进行注册，当App退出后，Receiver仍然可以接收到广播并且进行相应的处理 动态注册：在代码中动态注册，当App退出后，就没办法再接受广播  静态注册AndroidMainfest.xml配置123456&amp;lt;receiver android:nam">
+<meta property="og:description" content="相关权限     相关方法  判断SD卡是否存在 123456789/** * 判断SDCard是否存在 [当没有外挂SD卡时，内置ROM也被识别为存在sd卡] *  * @return */public static boolean isSDCardExist() &amp;#123;	return Environment.getExternalStorageState().equals(			Envi">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-28T14:23:51.999Z">
+<meta property="og:updated_time" content="2018-06-28T16:08:32.162Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Broadcast Receiver的使用">
-<meta name="twitter:description" content="广播接收者Broadcast Receiver分别有静态注册和动态注册两种使用方式:  静态注册：在AndroidManifest.xml文件中进行注册，当App退出后，Receiver仍然可以接收到广播并且进行相应的处理 动态注册：在代码中动态注册，当App退出后，就没办法再接受广播  静态注册AndroidMainfest.xml配置123456&amp;lt;receiver android:nam">
+<meta name="twitter:title" content="SD卡的读写操作">
+<meta name="twitter:description" content="相关权限     相关方法  判断SD卡是否存在 123456789/** * 判断SDCard是否存在 [当没有外挂SD卡时，内置ROM也被识别为存在sd卡] *  * @return */public static boolean isSDCardExist() &amp;#123;	return Environment.getExternalStorageState().equals(			Envi">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/03/04/post4/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/03/05/post6/"/>
 
 
 
 
 
-  <title>Broadcast Receiver的使用 | 程序猿的窝</title>
+  <title>SD卡的读写操作 | 程序猿的窝</title>
   
 
 
@@ -242,7 +242,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/04/post4/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/05/post6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Michael">
@@ -259,7 +259,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Broadcast Receiver的使用</h1>
+          <h1 class="post-title" itemprop="name headline">SD卡的读写操作</h1>
         
 
         <div class="post-meta">
@@ -271,8 +271,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-04T20:07:45+08:00">
-                2017-03-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-05T18:30:19+08:00">
+                2017-03-05
               </time>
             
 
@@ -331,17 +331,36 @@
       
 
       
-        <p>广播接收者Broadcast Receiver分别有静态注册和动态注册两种使用方式:</p>
-<ul>
-<li>静态注册：<br>在AndroidManifest.xml文件中进行注册，当App退出后，Receiver仍然可以接收到广播并且进行相应的处理</li>
-<li>动态注册：<br>在代码中动态注册，当App退出后，就没办法再接受广播</li>
-</ul>
-<h4 id="静态注册"><a href="#静态注册" class="headerlink" title="静态注册"></a>静态注册</h4><p>AndroidMainfest.xml配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;receiver android:name=&quot;.MyReceiver&quot;&gt;</span><br><span class="line">	&lt;intent-filter&gt;</span><br><span class="line">		&lt;action android:name=&quot;My_Broadcast&quot; /&gt;</span><br><span class="line">		&lt;category android:name=&quot;android.intent.category.DEFAULT&quot; /&gt;</span><br><span class="line">	&lt;/intent-filter&gt;</span><br><span class="line">&lt;/receiver&gt;</span><br></pre></td></tr></table></figure></p>
-<p>广播接收者继承BroadcastReceiver类，重写onReceive()方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public void MyReceiver extends BroadcastReceiver&#123;</span><br><span class="line">	@Override</span><br><span class="line">	public void onReceive(Context context, Intent intent)&#123;</span><br><span class="line">		//TODO </span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>发送广播<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Intent intent = new Intent();</span><br><span class="line">intent.setAction(&quot;MyReceiver&quot;);  //&quot;MyReceiver&quot;为Mainfest.xml中注册的名字</span><br><span class="line">sendBroadcast(intent);	//注意在内部类中应在方法前加上Activity.this来持有Activity对象引用</span><br></pre></td></tr></table></figure></p>
-<h4 id="动态注册"><a href="#动态注册" class="headerlink" title="动态注册"></a>动态注册</h4><p>广播接收者继承BroadcastReceiver类，重写onReceive()方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public void MyReceiver extends BroadcastReceiver&#123;</span><br><span class="line">	@Override</span><br><span class="line">	public void onReceive(Context context, Intent intent)&#123;</span><br><span class="line">		//TODO </span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>动态注册代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">public class MainActivity extends AppCompatActivity&#123;</span><br><span class="line"></span><br><span class="line">	private MyReceiver mReceiver = new MyReceiver();</span><br><span class="line"></span><br><span class="line">	@Override</span><br><span class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">	</span><br><span class="line">		IntentFilter filter = new IntentFilter();</span><br><span class="line">		filter.addAction(&quot;My_Broadcast&quot;);</span><br><span class="line">		registerReceiver(mReceiver,filter);</span><br><span class="line">		//registerReceiver()是android.content.ContextWrapper类中的方法，Activity和Service都继承了ContextWrapper，所以可以直接调用。</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	@Override  </span><br><span class="line">	protected void onDestroy() &#123;  </span><br><span class="line">    	super.onDestroy();  </span><br><span class="line">    	unregisterReceiver(mReceiver); </span><br><span class="line">		//动态注册必须执行解除注册操作，在Activity的onDestroy()方法中添加</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+        <p>相关权限<br><!-- 支持SD卡的写入权限 --></p>
+<p><uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"><br><!-- 支持SD卡的读取权限 --></uses-permission></p>
+<p><uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"><br><!-- 支持SD卡的创建，删除文件或者文件夹权限 --></uses-permission></p>
+<uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS">
 
+<p>相关方法</p>
+<ul>
+<li><p>判断SD卡是否存在</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 判断SDCard是否存在 [当没有外挂SD卡时，内置ROM也被识别为存在sd卡]</span><br><span class="line"> * </span><br><span class="line"> * @return</span><br><span class="line"> */</span><br><span class="line">public static boolean isSDCardExist() &#123;</span><br><span class="line">	return Environment.getExternalStorageState().equals(</span><br><span class="line">			Environment.MEDIA_MOUNTED);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>获取SD卡根目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 获取SD卡根目录路径</span><br><span class="line"> * </span><br><span class="line"> * @return</span><br><span class="line"> */</span><br><span class="line">public static String getSDCardPath() &#123;</span><br><span class="line">	boolean exist = isSDCardExist();</span><br><span class="line">	String sdPath = &quot;&quot;;	</span><br><span class="line">	if (exist) &#123;</span><br><span class="line">		sdPath = Environment.getExternalStorageDirectory()</span><br><span class="line">				.getAbsolutePath();</span><br><span class="line">	&#125; else &#123;</span><br><span class="line">		sdPath = &quot;未找到路径&quot;;</span><br><span class="line">	&#125;</span><br><span class="line">	return sdPath;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>获取SD卡路径</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Environment.getExternalStorageDirectory();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用FileInputStream读取文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">try &#123;</span><br><span class="line">	File file = new File(Environment.getExternalStorageDirectory(),</span><br><span class="line">   				&quot;test.txt&quot;);</span><br><span class="line">	FileInputStream fis = new FileInputStream(file);</span><br><span class="line">	byte[] b = new byte[InputStream.available()];</span><br><span class="line">	fis.read(b);</span><br><span class="line">	String result = new String(b);</span><br><span class="line">	System.out.println(&quot;读取成功：&quot;+result);</span><br><span class="line">&#125; catch (Exception e) &#123;</span><br><span class="line">	e.printStackTrace();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用BufferReader读取文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">try &#123;</span><br><span class="line">	File file = new File(Environment.getExternalStorageDirectory(),</span><br><span class="line">				&quot;test.txt&quot;);</span><br><span class="line">	BufferedReader bufferReader = new BufferedReader(new FileReader(file));</span><br><span class="line">	String str = &quot;&quot;;</span><br><span class="line">	StringBuffer stringBuffer = new StringBuffer();</span><br><span class="line">	while ((str = bufferReader.readLine()) != null) &#123;</span><br><span class="line">		System.out.println(&quot;readline:&quot; + str);</span><br><span class="line">		stringBuffer.append(str);</span><br><span class="line">	&#125;</span><br><span class="line">	bufferReader.close();</span><br><span class="line">	System.out.println(&quot;读取成功：&quot; + stringBuffer.toString());</span><br><span class="line">&#125; catch (Exception e) &#123;</span><br><span class="line">	e.printStackTrace();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用FileOutputStream写入文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">try &#123;</span><br><span class="line">	File file = new File(Environment.getExternalStorageDirectory(),</span><br><span class="line">				&quot;test.txt&quot;);</span><br><span class="line">    FileOutputStream fos = new FileOutputStream(file);</span><br><span class="line">    String str = &quot;test&quot;;</span><br><span class="line">       fos.write(str.getBytes());</span><br><span class="line">       fos.close();</span><br><span class="line">	System.out.println(&quot;写入成功&quot;);</span><br><span class="line">&#125; catch (Exception e) &#123;</span><br><span class="line">	e.printStackTrace();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用BufferedWriter写入文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">try &#123;</span><br><span class="line">	File file = new File(Environment.getExternalStorageDirectory(),</span><br><span class="line">				&quot;test.txt&quot;);</span><br><span class="line">	BufferedWriter bufferWriter = new BufferedWriter(new FileWriter(file, true));</span><br><span class="line">	String str = &quot;test&quot;;</span><br><span class="line">	bufferWriter.write(str);</span><br><span class="line">	bufferWriter.flush();</span><br><span class="line">	System.out.println(&quot;写入成功&quot;);</span><br><span class="line">&#125; catch (Exception e) &#123;</span><br><span class="line">	e.printStackTrace();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</uses-permission>
       
     </div>
     
@@ -365,8 +384,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/02/07/post3/" rel="next" title="单例设计模式">
-                <i class="fa fa-chevron-left"></i> 单例设计模式
+              <a href="/2017/03/05/post5/" rel="next" title="SQLite的使用">
+                <i class="fa fa-chevron-left"></i> SQLite的使用
               </a>
             
           </div>
@@ -374,10 +393,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/03/05/post5/" rel="prev" title="SQLite的使用">
-                SQLite的使用 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -429,17 +444,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -492,22 +498,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#静态注册"><span class="nav-number">1.</span> <span class="nav-text">静态注册</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#动态注册"><span class="nav-number">2.</span> <span class="nav-text">动态注册</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       

@@ -239,6 +239,324 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/05/post6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Michael">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="程序猿的窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/03/05/post6/" itemprop="url">SD卡的读写操作</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-05T18:30:19+08:00">
+                2017-03-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>相关权限<br><!-- 支持SD卡的写入权限 --></p>
+<p><uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"><br><!-- 支持SD卡的读取权限 --></uses-permission></p>
+<p><uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"><br><!-- 支持SD卡的创建，删除文件或者文件夹权限 --></uses-permission></p>
+<uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS">
+
+<p>相关方法</p>
+<ul>
+<li><p>判断SD卡是否存在</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 判断SDCard是否存在 [当没有外挂SD卡时，内置ROM也被识别为存在sd卡]</span><br><span class="line"> * </span><br><span class="line"> * @return</span><br><span class="line"> */</span><br><span class="line">public static boolean isSDCardExist() &#123;</span><br><span class="line">	return Environment.getExternalStorageState().equals(</span><br><span class="line">			Environment.MEDIA_MOUNTED);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>获取SD卡根目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 获取SD卡根目录路径</span><br><span class="line"> * </span><br><span class="line"> * @return</span><br><span class="line"> */</span><br><span class="line">public static String getSDCardPath() &#123;</span><br><span class="line">	boolean exist = isSDCardExist();</span><br><span class="line">	String sdPath = &quot;&quot;;	</span><br><span class="line">	if (exist) &#123;</span><br><span class="line">		sdPath = Environment.getExternalStorageDirectory()</span><br><span class="line">				.getAbsolutePath();</span><br><span class="line">	&#125; else &#123;</span><br><span class="line">		sdPath = &quot;未找到路径&quot;;</span><br><span class="line">	&#125;</span><br><span class="line">	return sdPath;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>获取SD卡路径</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Environment.getExternalStorageDirectory();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用FileInputStream读取文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">try &#123;</span><br><span class="line">	File file = new File(Environment.getExternalStorageDirectory(),</span><br><span class="line">   				&quot;test.txt&quot;);</span><br><span class="line">	FileInputStream fis = new FileInputStream(file);</span><br><span class="line">	byte[] b = new byte[InputStream.available()];</span><br><span class="line">	fis.read(b);</span><br><span class="line">	String result = new String(b);</span><br><span class="line">	System.out.println(&quot;读取成功：&quot;+result);</span><br><span class="line">&#125; catch (Exception e) &#123;</span><br><span class="line">	e.printStackTrace();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用BufferReader读取文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">try &#123;</span><br><span class="line">	File file = new File(Environment.getExternalStorageDirectory(),</span><br><span class="line">				&quot;test.txt&quot;);</span><br><span class="line">	BufferedReader bufferReader = new BufferedReader(new FileReader(file));</span><br><span class="line">	String str = &quot;&quot;;</span><br><span class="line">	StringBuffer stringBuffer = new StringBuffer();</span><br><span class="line">	while ((str = bufferReader.readLine()) != null) &#123;</span><br><span class="line">		System.out.println(&quot;readline:&quot; + str);</span><br><span class="line">		stringBuffer.append(str);</span><br><span class="line">	&#125;</span><br><span class="line">	bufferReader.close();</span><br><span class="line">	System.out.println(&quot;读取成功：&quot; + stringBuffer.toString());</span><br><span class="line">&#125; catch (Exception e) &#123;</span><br><span class="line">	e.printStackTrace();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用FileOutputStream写入文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">try &#123;</span><br><span class="line">	File file = new File(Environment.getExternalStorageDirectory(),</span><br><span class="line">				&quot;test.txt&quot;);</span><br><span class="line">    FileOutputStream fos = new FileOutputStream(file);</span><br><span class="line">    String str = &quot;test&quot;;</span><br><span class="line">       fos.write(str.getBytes());</span><br><span class="line">       fos.close();</span><br><span class="line">	System.out.println(&quot;写入成功&quot;);</span><br><span class="line">&#125; catch (Exception e) &#123;</span><br><span class="line">	e.printStackTrace();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用BufferedWriter写入文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">try &#123;</span><br><span class="line">	File file = new File(Environment.getExternalStorageDirectory(),</span><br><span class="line">				&quot;test.txt&quot;);</span><br><span class="line">	BufferedWriter bufferWriter = new BufferedWriter(new FileWriter(file, true));</span><br><span class="line">	String str = &quot;test&quot;;</span><br><span class="line">	bufferWriter.write(str);</span><br><span class="line">	bufferWriter.flush();</span><br><span class="line">	System.out.println(&quot;写入成功&quot;);</span><br><span class="line">&#125; catch (Exception e) &#123;</span><br><span class="line">	e.printStackTrace();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</uses-permission>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/05/post5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Michael">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="程序猿的窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/03/05/post5/" itemprop="url">SQLite的使用</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-05T10:40:55+08:00">
+                2017-03-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li><p>创建类继承SQLiteOpenHelper类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">public class DatabaseHelper extends SQLiteOpenHelper&#123;</span><br><span class="line"></span><br><span class="line">    public static final String DATABASE_NAME = &quot;database&quot;;</span><br><span class="line">    </span><br><span class="line">	public static final int DATABASE_VERSION = 1;</span><br><span class="line"></span><br><span class="line">	//构造方法可根据需求修改形参</span><br><span class="line">    public DatabaseHelper(Context context) &#123;</span><br><span class="line">        super(context, DATABASE_NAME, null, DATABASE_VERSION);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public DatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) &#123;</span><br><span class="line">        super(context, DATABASE_NAME, factory, DATABASE_VERSION);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void onCreate(SQLiteDatabase db) &#123;</span><br><span class="line">        db.execSQL(&quot;create table if not exists user (id integer primary key, name varchar(20), age integer)&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建数据库功能类（CURD，增删改查）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">public class DatabaseManager &#123;</span><br><span class="line"></span><br><span class="line">    private DatabaseHelper dbHelper;</span><br><span class="line">    </span><br><span class="line">	private SQLiteDatabase db;</span><br><span class="line"></span><br><span class="line">    public DatabaseManager(Context context)&#123;</span><br><span class="line">        this.dbHelper = new DatabaseHelper(context);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void openDB() &#123;</span><br><span class="line">		//getWritableDatabase()返回读写数据库的对象</span><br><span class="line">        db = dbHelper.getWritableDatabase();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void closeDB() &#123;</span><br><span class="line">        db.close();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public List&lt;UserBean&gt; queryAll() &#123;</span><br><span class="line">        List&lt;UserBean&gt; userList = new ArrayList&lt;&gt;();</span><br><span class="line">        Cursor cursor = db.rawQuery(&quot;select * from user&quot;, null);</span><br><span class="line">        while (cursor.moveToNext())&#123;</span><br><span class="line">            UserBean user = new UserBean(cursor.getInt(0), cursor.getString(1), cursor.getInt(2));</span><br><span class="line">            userList.add(user);</span><br><span class="line">        &#125;</span><br><span class="line">        cursor.close();</span><br><span class="line">        return userList;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/04/post4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -880,7 +1198,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
