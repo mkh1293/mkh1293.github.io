@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="“==” 对于基本数据类型用于比较两个数据的值是否相同 对于引用数据类型用于比较两个对象的内存地址是否相同   “equals”  基本数据类型不能用equals比较，但可以使用其对应包装类（即引用数据类型）来比较，且比较的是存放的值 普通引用数据类型源码调用的实质为”==”，可以其查看源码为 1234public boolean equals(Object obj)&amp;#123;	return">
+<meta name="description" content="对象类实现Serializable接口  实现接口123456789101112131415161718192021222324252627282930313233public class User implements Serializable&amp;#123;    private static final long serialVersionUID = 92245l;    private in">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java中&quot;==&quot;和&quot;equals&quot;的使用">
-<meta property="og:url" content="http://yoursite.com/2017/02/04/post2/index.html">
+<meta property="og:title" content="序列化">
+<meta property="og:url" content="http://yoursite.com/2017/02/11/post8/index.html">
 <meta property="og:site_name" content="程序猿的窝">
-<meta property="og:description" content="“==” 对于基本数据类型用于比较两个数据的值是否相同 对于引用数据类型用于比较两个对象的内存地址是否相同   “equals”  基本数据类型不能用equals比较，但可以使用其对应包装类（即引用数据类型）来比较，且比较的是存放的值 普通引用数据类型源码调用的实质为”==”，可以其查看源码为 1234public boolean equals(Object obj)&amp;#123;	return">
+<meta property="og:description" content="对象类实现Serializable接口  实现接口123456789101112131415161718192021222324252627282930313233public class User implements Serializable&amp;#123;    private static final long serialVersionUID = 92245l;    private in">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-10T00:39:57.510Z">
+<meta property="og:updated_time" content="2018-07-10T01:19:31.198Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java中&quot;==&quot;和&quot;equals&quot;的使用">
-<meta name="twitter:description" content="“==” 对于基本数据类型用于比较两个数据的值是否相同 对于引用数据类型用于比较两个对象的内存地址是否相同   “equals”  基本数据类型不能用equals比较，但可以使用其对应包装类（即引用数据类型）来比较，且比较的是存放的值 普通引用数据类型源码调用的实质为”==”，可以其查看源码为 1234public boolean equals(Object obj)&amp;#123;	return">
+<meta name="twitter:title" content="序列化">
+<meta name="twitter:description" content="对象类实现Serializable接口  实现接口123456789101112131415161718192021222324252627282930313233public class User implements Serializable&amp;#123;    private static final long serialVersionUID = 92245l;    private in">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/02/04/post2/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/02/11/post8/"/>
 
 
 
 
 
-  <title>Java中"=="和"equals"的使用 | 程序猿的窝</title>
+  <title>序列化 | 程序猿的窝</title>
   
 
 
@@ -242,7 +242,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/04/post2/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/11/post8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Michael">
@@ -259,7 +259,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Java中"=="和"equals"的使用</h1>
+          <h1 class="post-title" itemprop="name headline">序列化</h1>
         
 
         <div class="post-meta">
@@ -271,8 +271,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-04T00:00:00+08:00">
-                2017-02-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-11T00:00:00+08:00">
+                2017-02-11
               </time>
             
 
@@ -331,22 +331,13 @@
       
 
       
-        <ul>
-<li>“==”<ul>
-<li>对于基本数据类型用于比较两个数据的值是否相同</li>
-<li>对于引用数据类型用于比较两个对象的内存地址是否相同</li>
-</ul>
-</li>
-<li><p>“equals”</p>
-<ul>
-<li>基本数据类型不能用equals比较，但可以使用其对应包装类（即引用数据类型）来比较，且比较的是存放的值</li>
-<li><p>普通引用数据类型源码调用的实质为”==”，可以其查看源码为</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public boolean equals(Object obj)</span><br><span class="line">&#123;</span><br><span class="line">	return (this == obj);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>但很多类重写了该方法，如String，重写后比较的是存放的值</p>
-</li>
-</ul>
-</li>
-</ul>
+        <ol>
+<li>对象类实现Serializable接口</li>
+</ol>
+<p>实现接口<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">public class User implements Serializable&#123;</span><br><span class="line"></span><br><span class="line">    private static final long serialVersionUID = 92245l;</span><br><span class="line"></span><br><span class="line">    private int userId;</span><br><span class="line"></span><br><span class="line">    private String userName;</span><br><span class="line"></span><br><span class="line">    public User(int userId, String userName) &#123;</span><br><span class="line">        this.userId = userId;</span><br><span class="line">        this.userName = userName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static long getSerialVersionUID() &#123;</span><br><span class="line">        return serialVersionUID;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public int getUserId() &#123;</span><br><span class="line">        return userId;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setUserId(int userId) &#123;</span><br><span class="line">        this.userId = userId;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getUserName() &#123;</span><br><span class="line">        return userName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setUserName(String userName) &#123;</span><br><span class="line">        this.userName = userName;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>序列化<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">private void serialize() &#123;</span><br><span class="line">       try &#123;</span><br><span class="line">           User user = new User(1, &quot;Mike&quot;);</span><br><span class="line">           ObjectOutputStream out  = new ObjectOutputStream(new FileOutputStream(&quot;cache.txt&quot;));</span><br><span class="line">           out.writeObject(user);</span><br><span class="line">           out.close();</span><br><span class="line">       &#125;catch (Exception e)&#123;</span><br><span class="line">           e.printStackTrace();</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
+<p>反序列化<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">private void deserialize() &#123;</span><br><span class="line">    try &#123;</span><br><span class="line">        ObjectInputStream in = new ObjectInputStream(new FileInputStream(&quot;cache.txt&quot;));</span><br><span class="line">        User user = (User) in.readObject();</span><br><span class="line">        in.close();</span><br><span class="line">    &#125;catch (Exception e)&#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>对象类实现Parcelable接口<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">public class User implements Parcelable &#123;</span><br><span class="line">    private int  userId;</span><br><span class="line">    private String userName;</span><br><span class="line">    private String sex;</span><br><span class="line">    private Book book;</span><br><span class="line"></span><br><span class="line">    public User(int userId, String userName, String sex, Book book) &#123;</span><br><span class="line">        this.userId = userId;</span><br><span class="line">        this.userName = userName;</span><br><span class="line">        this.sex = sex;</span><br><span class="line">        this.book = book;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public int describeContents() &#123;</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    pbulic void writeToParcel(Parcel out, int flags) &#123;  //flags一般都为0</span><br><span class="line">        out.writeInt(userId);</span><br><span class="line">        out.writeString(userName);</span><br><span class="line">        out.writeString(sex);</span><br><span class="line">        out.writeParcelable(book, flags);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private User(Parcel in)&#123;</span><br><span class="line">        userId = in.ReadInt();</span><br><span class="line">        userName = in.ReadString();</span><br><span class="line">        sex = in.ReadString();</span><br><span class="line">        book = in.ReadParcelable(Thread.currentThread().getContextClassLoader());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public final static Parcelable.Creator&lt;User&gt; CREATOR = new Parcelable.Creator&lt;User&gt;() &#123;</span><br><span class="line">        public User createFromParcel(Parcel in) &#123;</span><br><span class="line">            return new User(in);</span><br><span class="line">        &#125;</span><br><span class="line">        public User[] newArray(int size) &#123;</span><br><span class="line">            return new User[size];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -371,8 +362,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/01/05/post1/" rel="next" title="使用Hexo+GitHub搭建博客">
-                <i class="fa fa-chevron-left"></i> 使用Hexo+GitHub搭建博客
+              <a href="/2017/02/07/post3/" rel="next" title="单例设计模式">
+                <i class="fa fa-chevron-left"></i> 单例设计模式
               </a>
             
           </div>
@@ -381,8 +372,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/02/07/post3/" rel="prev" title="单例设计模式">
-                单例设计模式 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/03/04/post4/" rel="prev" title="Broadcast Receiver的使用">
+                Broadcast Receiver的使用 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>

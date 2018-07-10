@@ -418,7 +418,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-05T10:40:55+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-05T00:00:00+08:00">
                 2017-03-05
               </time>
             
@@ -732,7 +732,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-04T20:07:45+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-04T00:00:00+08:00">
                 2017-03-04
               </time>
             
@@ -852,6 +852,154 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/11/post8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Michael">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="程序猿的窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/02/11/post8/" itemprop="url">序列化</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-11T00:00:00+08:00">
+                2017-02-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ol>
+<li>对象类实现Serializable接口</li>
+</ol>
+<p>实现接口<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">public class User implements Serializable&#123;</span><br><span class="line"></span><br><span class="line">    private static final long serialVersionUID = 92245l;</span><br><span class="line"></span><br><span class="line">    private int userId;</span><br><span class="line"></span><br><span class="line">    private String userName;</span><br><span class="line"></span><br><span class="line">    public User(int userId, String userName) &#123;</span><br><span class="line">        this.userId = userId;</span><br><span class="line">        this.userName = userName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static long getSerialVersionUID() &#123;</span><br><span class="line">        return serialVersionUID;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public int getUserId() &#123;</span><br><span class="line">        return userId;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setUserId(int userId) &#123;</span><br><span class="line">        this.userId = userId;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getUserName() &#123;</span><br><span class="line">        return userName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setUserName(String userName) &#123;</span><br><span class="line">        this.userName = userName;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>序列化<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">private void serialize() &#123;</span><br><span class="line">       try &#123;</span><br><span class="line">           User user = new User(1, &quot;Mike&quot;);</span><br><span class="line">           ObjectOutputStream out  = new ObjectOutputStream(new FileOutputStream(&quot;cache.txt&quot;));</span><br><span class="line">           out.writeObject(user);</span><br><span class="line">           out.close();</span><br><span class="line">       &#125;catch (Exception e)&#123;</span><br><span class="line">           e.printStackTrace();</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
+<p>反序列化<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">private void deserialize() &#123;</span><br><span class="line">    try &#123;</span><br><span class="line">        ObjectInputStream in = new ObjectInputStream(new FileInputStream(&quot;cache.txt&quot;));</span><br><span class="line">        User user = (User) in.readObject();</span><br><span class="line">        in.close();</span><br><span class="line">    &#125;catch (Exception e)&#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>对象类实现Parcelable接口<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">public class User implements Parcelable &#123;</span><br><span class="line">    private int  userId;</span><br><span class="line">    private String userName;</span><br><span class="line">    private String sex;</span><br><span class="line">    private Book book;</span><br><span class="line"></span><br><span class="line">    public User(int userId, String userName, String sex, Book book) &#123;</span><br><span class="line">        this.userId = userId;</span><br><span class="line">        this.userName = userName;</span><br><span class="line">        this.sex = sex;</span><br><span class="line">        this.book = book;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public int describeContents() &#123;</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    pbulic void writeToParcel(Parcel out, int flags) &#123;  //flags一般都为0</span><br><span class="line">        out.writeInt(userId);</span><br><span class="line">        out.writeString(userName);</span><br><span class="line">        out.writeString(sex);</span><br><span class="line">        out.writeParcelable(book, flags);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private User(Parcel in)&#123;</span><br><span class="line">        userId = in.ReadInt();</span><br><span class="line">        userName = in.ReadString();</span><br><span class="line">        sex = in.ReadString();</span><br><span class="line">        book = in.ReadParcelable(Thread.currentThread().getContextClassLoader());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public final static Parcelable.Creator&lt;User&gt; CREATOR = new Parcelable.Creator&lt;User&gt;() &#123;</span><br><span class="line">        public User createFromParcel(Parcel in) &#123;</span><br><span class="line">            return new User(in);</span><br><span class="line">        &#125;</span><br><span class="line">        public User[] newArray(int size) &#123;</span><br><span class="line">            return new User[size];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/07/post3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -883,7 +1031,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-07T18:30:07+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-07T00:00:00+08:00">
                 2017-02-07
               </time>
             
@@ -1031,7 +1179,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-04T22:27:19+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-04T00:00:00+08:00">
                 2017-02-04
               </time>
             
@@ -1188,7 +1336,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-05T20:10:22+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-05T00:00:00+08:00">
                 2017-01-05
               </time>
             
@@ -1342,7 +1490,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
