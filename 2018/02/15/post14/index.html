@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="创建类继承SQLiteOpenHelper类 12345678910111213141516171819202122232425public class DatabaseHelper extends SQLiteOpenHelper&amp;#123;    public static final String DATABASE_NAME = &amp;quot;database&amp;quot;;    	publ">
+<meta name="description" content="题：设计一个算法，计算出n阶乘中尾部零的个数 解：来自《编程之美》假设有一个5位数N=ABCDE，我们现在来考虑百位上出现2的次数，即：从0到ABCDE的数中，有多少个数的百位上是2。分析完它，就可以用同样的方法去计算个位，十位，千位，万位等各个位上出现2的次数。第一种情况：当百位上的数C小于2时：1）当百位c为0时，比如说12013，0到12013中哪些数的百位会出现2？我们从小的数起， 200">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SQLite的使用">
-<meta property="og:url" content="http://yoursite.com/2017/03/05/post5/index.html">
+<meta property="og:title" content="算法：尾部的零">
+<meta property="og:url" content="http://yoursite.com/2018/02/15/post14/index.html">
 <meta property="og:site_name" content="程序猿的窝">
-<meta property="og:description" content="创建类继承SQLiteOpenHelper类 12345678910111213141516171819202122232425public class DatabaseHelper extends SQLiteOpenHelper&amp;#123;    public static final String DATABASE_NAME = &amp;quot;database&amp;quot;;    	publ">
+<meta property="og:description" content="题：设计一个算法，计算出n阶乘中尾部零的个数 解：来自《编程之美》假设有一个5位数N=ABCDE，我们现在来考虑百位上出现2的次数，即：从0到ABCDE的数中，有多少个数的百位上是2。分析完它，就可以用同样的方法去计算个位，十位，千位，万位等各个位上出现2的次数。第一种情况：当百位上的数C小于2时：1）当百位c为0时，比如说12013，0到12013中哪些数的百位会出现2？我们从小的数起， 200">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-10T00:39:35.585Z">
+<meta property="og:updated_time" content="2019-02-28T01:39:54.468Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SQLite的使用">
-<meta name="twitter:description" content="创建类继承SQLiteOpenHelper类 12345678910111213141516171819202122232425public class DatabaseHelper extends SQLiteOpenHelper&amp;#123;    public static final String DATABASE_NAME = &amp;quot;database&amp;quot;;    	publ">
+<meta name="twitter:title" content="算法：尾部的零">
+<meta name="twitter:description" content="题：设计一个算法，计算出n阶乘中尾部零的个数 解：来自《编程之美》假设有一个5位数N=ABCDE，我们现在来考虑百位上出现2的次数，即：从0到ABCDE的数中，有多少个数的百位上是2。分析完它，就可以用同样的方法去计算个位，十位，千位，万位等各个位上出现2的次数。第一种情况：当百位上的数C小于2时：1）当百位c为0时，比如说12013，0到12013中哪些数的百位会出现2？我们从小的数起， 200">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/03/05/post5/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/02/15/post14/"/>
 
 
 
 
 
-  <title>SQLite的使用 | 程序猿的窝</title>
+  <title>算法：尾部的零 | 程序猿的窝</title>
   
 
 
@@ -242,7 +242,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/05/post5/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/15/post14/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Michael">
@@ -259,7 +259,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">SQLite的使用</h1>
+          <h1 class="post-title" itemprop="name headline">算法：尾部的零</h1>
         
 
         <div class="post-meta">
@@ -271,8 +271,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-05T00:00:00+08:00">
-                2017-03-05
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-15T00:00:00+08:00">
+                2018-02-15
               </time>
             
 
@@ -294,8 +294,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
                   </a>
                 </span>
 
@@ -331,13 +331,11 @@
       
 
       
-        <ul>
-<li><p>创建类继承SQLiteOpenHelper类</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">public class DatabaseHelper extends SQLiteOpenHelper&#123;</span><br><span class="line"></span><br><span class="line">    public static final String DATABASE_NAME = &quot;database&quot;;</span><br><span class="line">    </span><br><span class="line">	public static final int DATABASE_VERSION = 1;</span><br><span class="line"></span><br><span class="line">	//构造方法可根据需求修改形参</span><br><span class="line">    public DatabaseHelper(Context context) &#123;</span><br><span class="line">        super(context, DATABASE_NAME, null, DATABASE_VERSION);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public DatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) &#123;</span><br><span class="line">        super(context, DATABASE_NAME, factory, DATABASE_VERSION);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void onCreate(SQLiteDatabase db) &#123;</span><br><span class="line">        db.execSQL(&quot;create table if not exists user (id integer primary key, name varchar(20), age integer)&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>创建数据库功能类（CURD，增删改查）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">public class DatabaseManager &#123;</span><br><span class="line"></span><br><span class="line">    private DatabaseHelper dbHelper;</span><br><span class="line">    </span><br><span class="line">	private SQLiteDatabase db;</span><br><span class="line"></span><br><span class="line">    public DatabaseManager(Context context)&#123;</span><br><span class="line">        this.dbHelper = new DatabaseHelper(context);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void openDB() &#123;</span><br><span class="line">		//getWritableDatabase()返回读写数据库的对象</span><br><span class="line">        db = dbHelper.getWritableDatabase();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void closeDB() &#123;</span><br><span class="line">        db.close();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public List&lt;UserBean&gt; queryAll() &#123;</span><br><span class="line">        List&lt;UserBean&gt; userList = new ArrayList&lt;&gt;();</span><br><span class="line">        Cursor cursor = db.rawQuery(&quot;select * from user&quot;, null);</span><br><span class="line">        while (cursor.moveToNext())&#123;</span><br><span class="line">            UserBean user = new UserBean(cursor.getInt(0), cursor.getString(1), cursor.getInt(2));</span><br><span class="line">            userList.add(user);</span><br><span class="line">        &#125;</span><br><span class="line">        cursor.close();</span><br><span class="line">        return userList;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
+        <p>题：设计一个算法，计算出n阶乘中尾部零的个数</p>
+<p>解：<br>来自《编程之美》<br>假设有一个5位数N=ABCDE，我们现在来考虑百位上出现2的次数，即：从0到ABCDE的数中，有多少个数的百位上是2。分析完它，就可以用同样的方法去计算个位，十位，千位，万位等各个位上出现2的次数。<br>第一种情况：当百位上的数C小于2时：<br>1）当百位c为0时，比如说12013，0到12013中哪些数的百位会出现2？我们从小的数起， 200~299, 1200~1299, 2200~2299, … , 11200~11299, 也就是固定低3位为200~299，然后高位依次从0到11，共12个。再往下12200~12299 已经大于12013，因此不再往下。所以，当百位为0时，百位出现2的次数只由更高位决定，等于更高位数字(12)x当前位数(100)=1200个。<br>2）当百位C为1时，比如说12113。分析同上，并且和上面的情况一模一样。最大也只能到11200~11299，所以百位出现2的次数也是1200个。<br>上面两步综合起来，可以得到以下结论：<br>—&gt;当某一位的数字小于2时，那么该位出现2的次数为：更高位数字x当前位数<br>第二种情况：当百位上的数C等于2时：<br>当百位C为2时，比如说12213。那么，我们还是有200~299, 1200~1299, 2200~2299, … , 11200~11299这1200个数，他们的百位为2。但同时，还有一部分12200~12213，共14个(低位数字+1)。所以，当百位数字为2时，百位出现2的次数既受高位影响也受低位影响，结论如下：<br>—&gt;当某一位的数字等于2时，那么该位出现2的次数为：更高位数字x当前位数+低位数字+1<br>第三种情况：当百位上的数C大于2时：<br>当百位C大于2时，比如说12313，那么固定低3位为200~299，高位依次可以从0到12，这一次就把12200~12299也包含了，同时也没低位什么事情。因此出现2的次数是： (更高位数字+1)x当前位数。结论如下：<br>—&gt;当某一位的数字大于2时，那么该位出现2的次数为：(更高位数字+1)x当前位数 </p>
+<p>当某一位的数字小于i时，那么该位出现i的次数为：更高位数字x当前位数<br>当某一位的数字等于i时，那么该位出现i的次数为：更高位数字x当前位数+低位数字+1<br>当某一位的数字大于i时，那么该位出现i的次数为：(更高位数字+1)x当前位数</p>
+<p>最后记得处理特殊情况:<br>即当 k == 0时，<br>(1) 如果n == 0 ,则有 1 个 0<br>(2) 如果n != 0 ,则有 个 0</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">int digitCounts(int k, int n) &#123;</span><br><span class="line">		// write your code here</span><br><span class="line">		long base = 1, ans = k == 0 ? 1 : 0;</span><br><span class="line"></span><br><span class="line">		while (n &gt;= base) &#123;</span><br><span class="line">			long prefix = (long) n / base / 10, digit = (long) n / base % 10, suffix = (long) n % base;</span><br><span class="line"></span><br><span class="line">			if (digit &lt; k)</span><br><span class="line">				ans += prefix * base;</span><br><span class="line"></span><br><span class="line">			else if (digit == k)</span><br><span class="line">				ans += (k == 0 ? (prefix - 1) * base : prefix * base) + 1 + suffix;</span><br><span class="line"></span><br><span class="line">			else</span><br><span class="line">				ans += k == 0 ? prefix * base : (prefix + 1) * base;</span><br><span class="line"></span><br><span class="line">			base *= 10;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		return (int) ans;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -362,8 +360,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/03/04/post4/" rel="next" title="Broadcast Receiver的使用">
-                <i class="fa fa-chevron-left"></i> Broadcast Receiver的使用
+              <a href="/2018/02/15/post13/" rel="next" title="算法：A+B问题">
+                <i class="fa fa-chevron-left"></i> 算法：A+B问题
               </a>
             
           </div>
@@ -371,10 +369,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/03/05/post6/" rel="prev" title="SD卡的读写操作">
-                SD卡的读写操作 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>

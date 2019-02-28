@@ -239,6 +239,580 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/15/post14/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Michael">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="程序猿的窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/02/15/post14/" itemprop="url">算法：尾部的零</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-15T00:00:00+08:00">
+                2018-02-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>题：设计一个算法，计算出n阶乘中尾部零的个数</p>
+<p>解：<br>来自《编程之美》<br>假设有一个5位数N=ABCDE，我们现在来考虑百位上出现2的次数，即：从0到ABCDE的数中，有多少个数的百位上是2。分析完它，就可以用同样的方法去计算个位，十位，千位，万位等各个位上出现2的次数。<br>第一种情况：当百位上的数C小于2时：<br>1）当百位c为0时，比如说12013，0到12013中哪些数的百位会出现2？我们从小的数起， 200~299, 1200~1299, 2200~2299, … , 11200~11299, 也就是固定低3位为200~299，然后高位依次从0到11，共12个。再往下12200~12299 已经大于12013，因此不再往下。所以，当百位为0时，百位出现2的次数只由更高位决定，等于更高位数字(12)x当前位数(100)=1200个。<br>2）当百位C为1时，比如说12113。分析同上，并且和上面的情况一模一样。最大也只能到11200~11299，所以百位出现2的次数也是1200个。<br>上面两步综合起来，可以得到以下结论：<br>—&gt;当某一位的数字小于2时，那么该位出现2的次数为：更高位数字x当前位数<br>第二种情况：当百位上的数C等于2时：<br>当百位C为2时，比如说12213。那么，我们还是有200~299, 1200~1299, 2200~2299, … , 11200~11299这1200个数，他们的百位为2。但同时，还有一部分12200~12213，共14个(低位数字+1)。所以，当百位数字为2时，百位出现2的次数既受高位影响也受低位影响，结论如下：<br>—&gt;当某一位的数字等于2时，那么该位出现2的次数为：更高位数字x当前位数+低位数字+1<br>第三种情况：当百位上的数C大于2时：<br>当百位C大于2时，比如说12313，那么固定低3位为200~299，高位依次可以从0到12，这一次就把12200~12299也包含了，同时也没低位什么事情。因此出现2的次数是： (更高位数字+1)x当前位数。结论如下：<br>—&gt;当某一位的数字大于2时，那么该位出现2的次数为：(更高位数字+1)x当前位数 </p>
+<p>当某一位的数字小于i时，那么该位出现i的次数为：更高位数字x当前位数<br>当某一位的数字等于i时，那么该位出现i的次数为：更高位数字x当前位数+低位数字+1<br>当某一位的数字大于i时，那么该位出现i的次数为：(更高位数字+1)x当前位数</p>
+<p>最后记得处理特殊情况:<br>即当 k == 0时，<br>(1) 如果n == 0 ,则有 1 个 0<br>(2) 如果n != 0 ,则有 个 0</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">int digitCounts(int k, int n) &#123;</span><br><span class="line">		// write your code here</span><br><span class="line">		long base = 1, ans = k == 0 ? 1 : 0;</span><br><span class="line"></span><br><span class="line">		while (n &gt;= base) &#123;</span><br><span class="line">			long prefix = (long) n / base / 10, digit = (long) n / base % 10, suffix = (long) n % base;</span><br><span class="line"></span><br><span class="line">			if (digit &lt; k)</span><br><span class="line">				ans += prefix * base;</span><br><span class="line"></span><br><span class="line">			else if (digit == k)</span><br><span class="line">				ans += (k == 0 ? (prefix - 1) * base : prefix * base) + 1 + suffix;</span><br><span class="line"></span><br><span class="line">			else</span><br><span class="line">				ans += k == 0 ? prefix * base : (prefix + 1) * base;</span><br><span class="line"></span><br><span class="line">			base *= 10;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		return (int) ans;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/15/post13/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Michael">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="程序猿的窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/02/15/post13/" itemprop="url">算法：A+B问题</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-15T00:00:00+08:00">
+                2018-02-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>题：输入两个整数a和b,求他们的和</p>
+<p>解：<br>对于二进制的加法运算，若不考虑进位，则1+1=0,1+0=1,0+1=1,0+0=0,和异或运算^类似。考虑进位，0+0进位为0,1+0进位为0,0+1进位为0，1+1进位为1，和与运算&amp;类似。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">int bitAdd(int a,int b)</span><br><span class="line">&#123;</span><br><span class="line">	int sum = a^b;</span><br><span class="line">	int carry =(a&amp;b)&lt;&lt;1;</span><br><span class="line">	if(carry == 0)&#123;</span><br><span class="line">		return sum;</span><br><span class="line">	&#125;</span><br><span class="line">	return bitAdd(sum,carry);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/15/post12/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Michael">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="程序猿的窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/02/15/post12/" itemprop="url">导入项目后提示找不到sdk.dir下的sdk路径</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-15T00:00:00+08:00">
+                2018-02-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/开发问题/" itemprop="url" rel="index">
+                    <span itemprop="name">开发问题</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>导入项目前找到项目local.properties文件，把sdk.dir路径修改成本机sdk路径，然后再进行导入</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/14/post9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Michael">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="程序猿的窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/02/14/post9/" itemprop="url">编译运行后出现两个以上APP图标</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-14T00:00:00+08:00">
+                2018-02-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/开发问题/" itemprop="url" rel="index">
+                    <span itemprop="name">开发问题</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>卸载其中一个将卸载所有相关应用，可能出现只有一个能进入的状态</p>
+<p>原因:添加多个依赖时，其它依赖中有activity的intent-filter中的category属性设置了LAUNCHER主程序入口，只需要将其改为DEFAULT即可</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/14/post7/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -387,7 +961,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/05/post5/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/25/post10/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Michael">
@@ -406,7 +980,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/03/05/post5/" itemprop="url">SQLite的使用</a></h1>
+                <a class="post-title-link" href="/2017/05/25/post10/" itemprop="url">JVM内存模型</a></h1>
         
 
         <div class="post-meta">
@@ -418,8 +992,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-05T00:00:00+08:00">
-                2017-03-05
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-25T00:00:00+08:00">
+                2017-05-25
               </time>
             
 
@@ -441,8 +1015,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android/" itemprop="url" rel="index">
-                    <span itemprop="name">Android</span>
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
                   </a>
                 </span>
 
@@ -480,13 +1054,13 @@
       
         
           
-            <ul>
-<li><p>创建类继承SQLiteOpenHelper类</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">public class DatabaseHelper extends SQLiteOpenHelper&#123;</span><br><span class="line"></span><br><span class="line">    public static final String DATABASE_NAME = &quot;database&quot;;</span><br><span class="line">    </span><br><span class="line">	public static final int DATABASE_VERSION = 1;</span><br><span class="line"></span><br><span class="line">	//构造方法可根据需求修改形参</span><br><span class="line">    public DatabaseHelper(Context context) &#123;</span><br><span class="line">        super(context, DATABASE_NAME, null, DATABASE_VERSION);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public DatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) &#123;</span><br><span class="line">        super(context, DATABASE_NAME, factory, DATABASE_VERSION);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void onCreate(SQLiteDatabase db) &#123;</span><br><span class="line">        db.execSQL(&quot;create table if not exists user (id integer primary key, name varchar(20), age integer)&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>创建数据库功能类（CURD，增删改查）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">public class DatabaseManager &#123;</span><br><span class="line"></span><br><span class="line">    private DatabaseHelper dbHelper;</span><br><span class="line">    </span><br><span class="line">	private SQLiteDatabase db;</span><br><span class="line"></span><br><span class="line">    public DatabaseManager(Context context)&#123;</span><br><span class="line">        this.dbHelper = new DatabaseHelper(context);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void openDB() &#123;</span><br><span class="line">		//getWritableDatabase()返回读写数据库的对象</span><br><span class="line">        db = dbHelper.getWritableDatabase();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void closeDB() &#123;</span><br><span class="line">        db.close();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public List&lt;UserBean&gt; queryAll() &#123;</span><br><span class="line">        List&lt;UserBean&gt; userList = new ArrayList&lt;&gt;();</span><br><span class="line">        Cursor cursor = db.rawQuery(&quot;select * from user&quot;, null);</span><br><span class="line">        while (cursor.moveToNext())&#123;</span><br><span class="line">            UserBean user = new UserBean(cursor.getInt(0), cursor.getString(1), cursor.getInt(2));</span><br><span class="line">            userList.add(user);</span><br><span class="line">        &#125;</span><br><span class="line">        cursor.close();</span><br><span class="line">        return userList;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
+            <p>1.程序计数器<br>在JVM规范中规定，如果线程执行的是非native方法，则程序计数器中保存的是当前需要执行的指令的地址；如果线程执行的是native方法，则程序计数器中的值是undefined。由于程序计数器中存储的数据所占空间的大小不会随程序的执行而发生改变，因此，对于程序计数器是不会发生内存溢出现象(OutOfMemory)的。</p>
+<p>2.Java虚拟机栈<br>Java虚拟机栈中存放的是一个个的栈帧，每个栈帧对应一个被调用的方法，在栈帧中包括局部变量表(Local Variables)、操作数栈(Operand Stack)、指向当前方法所属的类的运行时常量池的引用(Reference to runtime constant pool)、方法返回地址(Return Address)和一些额外的附加信息。当线程执行一个方法时，就会随之创建一个对应的栈帧，并将建立的栈帧压栈。当方法执行完毕之后，便会将栈帧出栈。因此可知，线程当前执行的方法所对应的栈帧必定位于Java栈的顶部</p>
+<p>3.本地方法栈<br>本地方法栈（Native Method Stacks）与虚拟机栈所发挥的作用是非常相似的，其区别不过是java虚拟机栈为虚拟机执行Java 方法（也就是字节码）服务，而本地方法栈则是为虚拟机使用到的Native 方法服务。</p>
+<p>4.Java堆<br>对于大多数应用来说，Java 堆（Java Heap）是Java 虚拟机所管理的内存中最大的一块。Java 堆是被所有线程共享的一块内存区域，在虚拟机启动时创建。此内存区域的唯一目的就是存放对象实例，几乎所有的对象实例都在这里分配内存。这一点在Java 虚拟机规范中的描述是：所有的对象实例以及数组都要在堆上分配，但是随着JIT 编译器的发展与逃逸分析技术的逐渐成熟，栈上分配、标量替换②优化技术将会导致一些微妙的变化发生，所有的对象都分配在堆上也渐渐变得不是那么“绝对”了。<br>Java 堆是垃圾收集器管理的主要区域，因此很多时候也被称做“GC 堆”（Garbage Collected Heap）。如果从内存回收的角度看，由于现在收集器基本都是采用的分代收集算法，所以Java 堆中还可以细分为：新生代和老年代；再细致一点的有Eden 空间、From Survivor 空间、To Survivor 空间等。如果从内存分配的角度看，线程共享的Java 堆中可能划分出多个线程私有的分配缓冲区（Thread Local Allocation Buffer，TLAB）。不过，无论如何划分，都与存放内容无关，无论哪个区域，存储的都仍然是对象实例，进一步划分的目的是为了更好地回收内存，或者更快地分配内存。</p>
+<p>5.方法区<br>方法区（Method Area）与Java 堆一样，是各个线程共享的内存区域，它用于存储已被虚拟机加载的类信息、常量、静态变量、即时编译器编译后的代码等数据。</p>
+<p>6.运行时常量池<br>运行时常量池（Runtime Constant Pool）是方法区的一部分。Class 文件中除了有类的版本、字段、方法、接口等描述等信息外，还有一项信息是常量池（Constant Pool Table），用于存放编译期生成的各种字面量(字符串、常量、基本数据类型值等)和符号引用（类和结构完全限定名、字段名称和描述符、方法名称和描述符），这部分内容将在类加载后存放到方法区的运行时常量池中。Java 虚拟机对Class 文件的每一部分（自然也包括常量池）的格式都有严格的规定，每一个字节用于存储哪种数据都必须符合规范上的要求，这样才会被虚拟机认可、装载和执行。但对于运行时常量池，Java 虚拟机规范没有做任何细节的要求，不同的提供商实现的虚拟机可以按照自己的需要来实现这个内存区域。不过，一般来说，除了保存Class 文件中描述的符号引用外，还会把翻译出来的直接引用也存储在运行时常量池中。<br>运行时常量池相对于Class 文件常量池的另外一个重要特征是具备动态性，Java 语言并不要求常量一定只能在编译期产生，也就是并非预置入Class 文件中常量池的内容才能进入方法区运行时常量池，运行期间也可能将新的常量放入池中，这种特性被开发人员利用得比较多的便是String 类的intern() 方法。</p>
+<p>(有待考证)<br>在JDK6.0及之前版本，运行时常量池是放在Perm Gen区(也就是方法区)中；<br>在JDK7.0版本，运行时常量池被移到了堆中了。至于为什么移到堆内，大概是由于方法区的内存空间太小了。<br>在JDK8.0运行时常量池存在于与方法区和堆区相对独立的元空间</p>
 
           
         
@@ -652,6 +1226,154 @@
 <li><p>使用BufferedWriter写入文件</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">try &#123;</span><br><span class="line">	File file = new File(Environment.getExternalStorageDirectory(),</span><br><span class="line">				&quot;test.txt&quot;);</span><br><span class="line">	BufferedWriter bufferWriter = new BufferedWriter(new FileWriter(file, true));</span><br><span class="line">	String str = &quot;test&quot;;</span><br><span class="line">	bufferWriter.write(str);</span><br><span class="line">	bufferWriter.flush();</span><br><span class="line">	System.out.println(&quot;写入成功&quot;);</span><br><span class="line">&#125; catch (Exception e) &#123;</span><br><span class="line">	e.printStackTrace();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/03/05/post5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Michael">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="程序猿的窝">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/03/05/post5/" itemprop="url">SQLite的使用</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-05T00:00:00+08:00">
+                2017-03-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li><p>创建类继承SQLiteOpenHelper类</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">public class DatabaseHelper extends SQLiteOpenHelper&#123;</span><br><span class="line"></span><br><span class="line">    public static final String DATABASE_NAME = &quot;database&quot;;</span><br><span class="line">    </span><br><span class="line">	public static final int DATABASE_VERSION = 1;</span><br><span class="line"></span><br><span class="line">	//构造方法可根据需求修改形参</span><br><span class="line">    public DatabaseHelper(Context context) &#123;</span><br><span class="line">        super(context, DATABASE_NAME, null, DATABASE_VERSION);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public DatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) &#123;</span><br><span class="line">        super(context, DATABASE_NAME, factory, DATABASE_VERSION);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void onCreate(SQLiteDatabase db) &#123;</span><br><span class="line">        db.execSQL(&quot;create table if not exists user (id integer primary key, name varchar(20), age integer)&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建数据库功能类（CURD，增删改查）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">public class DatabaseManager &#123;</span><br><span class="line"></span><br><span class="line">    private DatabaseHelper dbHelper;</span><br><span class="line">    </span><br><span class="line">	private SQLiteDatabase db;</span><br><span class="line"></span><br><span class="line">    public DatabaseManager(Context context)&#123;</span><br><span class="line">        this.dbHelper = new DatabaseHelper(context);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void openDB() &#123;</span><br><span class="line">		//getWritableDatabase()返回读写数据库的对象</span><br><span class="line">        db = dbHelper.getWritableDatabase();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void closeDB() &#123;</span><br><span class="line">        db.close();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public List&lt;UserBean&gt; queryAll() &#123;</span><br><span class="line">        List&lt;UserBean&gt; userList = new ArrayList&lt;&gt;();</span><br><span class="line">        Cursor cursor = db.rawQuery(&quot;select * from user&quot;, null);</span><br><span class="line">        while (cursor.moveToNext())&#123;</span><br><span class="line">            UserBean user = new UserBean(cursor.getInt(0), cursor.getString(1), cursor.getInt(2));</span><br><span class="line">            userList.add(user);</span><br><span class="line">        &#125;</span><br><span class="line">        cursor.close();</span><br><span class="line">        return userList;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
 
           
@@ -906,8 +1628,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
                   </a>
                 </span>
 
@@ -948,464 +1670,7 @@
             <h3 id="对象类实现Serializable接口"><a href="#对象类实现Serializable接口" class="headerlink" title="对象类实现Serializable接口"></a>对象类实现Serializable接口</h3><p>实现接口<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">public class User implements Serializable&#123;</span><br><span class="line"></span><br><span class="line">    private static final long serialVersionUID = 92245l;</span><br><span class="line"></span><br><span class="line">    private int userId;</span><br><span class="line"></span><br><span class="line">    private String userName;</span><br><span class="line"></span><br><span class="line">    public User(int userId, String userName) &#123;</span><br><span class="line">        this.userId = userId;</span><br><span class="line">        this.userName = userName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static long getSerialVersionUID() &#123;</span><br><span class="line">        return serialVersionUID;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public int getUserId() &#123;</span><br><span class="line">        return userId;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setUserId(int userId) &#123;</span><br><span class="line">        this.userId = userId;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public String getUserName() &#123;</span><br><span class="line">        return userName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setUserName(String userName) &#123;</span><br><span class="line">        this.userName = userName;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>序列化<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">private void serialize() &#123;</span><br><span class="line">       try &#123;</span><br><span class="line">           User user = new User(1, &quot;Mike&quot;);</span><br><span class="line">           ObjectOutputStream out  = new ObjectOutputStream(new FileOutputStream(&quot;cache.txt&quot;));</span><br><span class="line">           out.writeObject(user);</span><br><span class="line">           out.close();</span><br><span class="line">       &#125;catch (Exception e)&#123;</span><br><span class="line">           e.printStackTrace();</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
 <p>反序列化<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">private void deserialize() &#123;</span><br><span class="line">    try &#123;</span><br><span class="line">        ObjectInputStream in = new ObjectInputStream(new FileInputStream(&quot;cache.txt&quot;));</span><br><span class="line">        User user = (User) in.readObject();</span><br><span class="line">        in.close();</span><br><span class="line">    &#125;catch (Exception e)&#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="对象类实现Parcelable接口"><a href="#对象类实现Parcelable接口" class="headerlink" title="对象类实现Parcelable接口"></a>对象类实现Parcelable接口</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">public class User implements Parcelable &#123;</span><br><span class="line">    private int  userId;</span><br><span class="line">    private String userName;</span><br><span class="line">    private String sex;</span><br><span class="line">    private Book book;</span><br><span class="line"></span><br><span class="line">    public User(int userId, String userName, String sex, Book book) &#123;</span><br><span class="line">        this.userId = userId;</span><br><span class="line">        this.userName = userName;</span><br><span class="line">        this.sex = sex;</span><br><span class="line">        this.book = book;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public int describeContents() &#123;</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	//序列化</span><br><span class="line">    pbulic void writeToParcel(Parcel out, int flags) &#123;  //flags一般都为0</span><br><span class="line">        out.writeInt(userId);</span><br><span class="line">        out.writeString(userName);</span><br><span class="line">        out.writeString(sex);</span><br><span class="line">        out.writeParcelable(book, flags);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	//反序列化</span><br><span class="line">    private User(Parcel in)&#123;</span><br><span class="line">        userId = in.ReadInt();</span><br><span class="line">        userName = in.ReadString();</span><br><span class="line">        sex = in.ReadString();</span><br><span class="line">        book = in.ReadParcelable(Thread.currentThread().getContextClassLoader());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public final static Parcelable.Creator&lt;User&gt; CREATOR = new Parcelable.Creator&lt;User&gt;() &#123;</span><br><span class="line">        public User createFromParcel(Parcel in) &#123;</span><br><span class="line">            return new User(in);</span><br><span class="line">        &#125;</span><br><span class="line">        public User[] newArray(int size) &#123;</span><br><span class="line">            return new User[size];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/07/post3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Michael">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="程序猿的窝">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/02/07/post3/" itemprop="url">单例设计模式</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-07T00:00:00+08:00">
-                2017-02-07
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/设计模式/" itemprop="url" rel="index">
-                    <span itemprop="name">设计模式</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>单例模式的要点有三个：<br>1、单例模式类只能有一个实例<br>2、该类必须自行创建这个实例<br>3、该类必须对外提供这个实例<br>从具体实现角度来说，就是以下三点：<br>1、单例模式类的构造函数必须声明为私有<br>2、该类定义中含有一个该类的静态私有对象<br>3、该类提供了一个静态的公有的函数用于创建或获取它本身的静态私有对象。</p>
-<p>饿汉式</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">class Singleton&#123;</span><br><span class="line">	private static final Singleton instance = new Singleton();</span><br><span class="line">	</span><br><span class="line">	private Singleton()&#123;</span><br><span class="line">		//do something</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public static Singleton getInstance()&#123;</span><br><span class="line">		return instance;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>懒汉式(较常用)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class Singleton&#123;</span><br><span class="line">	private static Singleton instance = null;</span><br><span class="line">	</span><br><span class="line">	private Singleton()&#123;</span><br><span class="line">		//do something</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public static synchronized Singleton getInstance()&#123;</span><br><span class="line">		if(instance==null)&#123;</span><br><span class="line">			instance = new Singleton();</span><br><span class="line">		&#125;</span><br><span class="line">		return instance;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>双重锁形式(比懒汉式性能更好)<br>单例模式中只需要一次创建实例的过程，双重锁形式只有第一次创建时才会执行同步代码块(即执行new Singleton()方法)，提高了效率(同步需要加锁，会消耗内存)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">class Singleton&#123;</span><br><span class="line">	//volatile为了确保内存数据一致</span><br><span class="line">	private volatile static Singleton instance = null;</span><br><span class="line">	</span><br><span class="line">	private Singleton()&#123;</span><br><span class="line">		//do something</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public static Singleton getInstance()&#123;</span><br><span class="line">		if(instance==null)&#123;</span><br><span class="line">			synchronized(Singleton.class)&#123;</span><br><span class="line">				if(instance==null)&#123;</span><br><span class="line">					instance = new Singleton();</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		return instance;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>静态内部类(《Effective Java》中提到的方法)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class Singleton&#123;</span><br><span class="line">		private static class SingletHolder&#123;</span><br><span class="line">			private static final Singleton INSTANCE = new Singleton();</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		private Singleton()&#123;</span><br><span class="line">			//do something</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		public static final Singleton getInstance()&#123;</span><br><span class="line">			return SingletonHolder.INSTANCE;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>枚举(可以防止反序列导致重新创建新对象)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public enum Singleton&#123;</span><br><span class="line">	INSTANCE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/02/04/post2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Michael">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="程序猿的窝">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/02/04/post2/" itemprop="url">Java中"=="和"equals"的使用</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-04T00:00:00+08:00">
-                2017-02-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li>“==”<ul>
-<li>对于基本数据类型用于比较两个数据的值是否相同</li>
-<li>对于引用数据类型用于比较两个对象的内存地址是否相同</li>
-</ul>
-</li>
-<li><p>“equals”</p>
-<ul>
-<li>基本数据类型不能用equals比较，但可以使用其对应包装类（即引用数据类型）来比较，且比较的是存放的值</li>
-<li><p>普通引用数据类型源码调用的实质为”==”，可以其查看源码为</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public boolean equals(Object obj)</span><br><span class="line">&#123;</span><br><span class="line">	return (this == obj);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>但很多类重写了该方法，如String，重写后比较的是存放的值</p>
-</li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/01/05/post1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Michael">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="程序猿的窝">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/01/05/post1/" itemprop="url">使用Hexo+GitHub搭建博客</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-05T00:00:00+08:00">
-                2017-01-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Hexo/" itemprop="url" rel="index">
-                    <span itemprop="name">Hexo</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="安装Hexo前提"><a href="#安装Hexo前提" class="headerlink" title="安装Hexo前提"></a>安装Hexo前提</h4><p>您必须检查电脑中是否已安装下列应用程序：</p>
-<p><a href="https://git-scm.com/" target="_blank" rel="noopener">Git</a><br><a href="https://nodejs.org/en/" target="_blank" rel="noopener">Node.js</a></p>
-<p>Windows用户可从以上两个链接下载安装Git和Node.js</p>
-<h4 id="使用nvm安装Node-js-若已下载安装可直接跳过该步骤"><a href="#使用nvm安装Node-js-若已下载安装可直接跳过该步骤" class="headerlink" title="使用nvm安装Node.js(若已下载安装可直接跳过该步骤)"></a>使用nvm安装Node.js(若已下载安装可直接跳过该步骤)</h4><p>安装好Git后，新建一个文件夹作为根目录（文件名不要使用中文），在根目录下右键选择Git Bash，进入命令行终端，然后输入以下命令安装nvm<br><code>$ curl https://raw.github.com/creationix/nvm/master/install.sh | sh</code><br>又或者<br><code>$ wget -qO- https://raw.github.com/creationix/nvm/master/install.sh | sh</code><br>安装完成后，关掉命令行终端并用Git Bash重新打开，执行下列命令安装Node.js<br><code>$ nvm install stable</code></p>
-<h4 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h4><p>安装好Git和Node.js后，新建文件夹（文件名不要使用中文），在文件夹内右键点选Git Bash(相关命令使用linux shell执行，以$开头的代码块都是在命令行终端执行)，进入命令行终端，执行以下命令安装Hexo<br><code>$ npm install -g hexo-cli</code></p>
-<h4 id="创建github仓库"><a href="#创建github仓库" class="headerlink" title="创建github仓库"></a>创建github仓库</h4><p>新建一个名为<username.github.io>的仓库，比如说，如果你的github用户名是test，那么你就新建<test.github.io>的仓库（必须是你的用户名，其它名称无效），将来你的网站访问地址就是 <a href="http://test.github.io" target="_blank" rel="noopener">http://test.github.io</a></test.github.io></username.github.io></p>
-<h4 id="配置SSH"><a href="#配置SSH" class="headerlink" title="配置SSH"></a>配置SSH</h4><p>往github仓库提交代码需要使用ssh key，在任意文件夹右键使用Git Bash，执行以下命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;邮件地址&quot;</span><br></pre></td></tr></table></figure></p>
-<p>然后连续3次回车，最终会生成一个文件在用户目录下，打开用户目录，找到.ssh\id_rsa.pub文件，记事本打开并复制里面的内容，打开你的github主页，进入个人设置 -&gt; SSH and GPG keys -&gt; New SSH key将刚复制的内容粘贴到key那里，title随便填，保存。然后Git Bash，执行命令<br><code>$ ssh -T git@github.com</code><br>若提示<br><code>Are you sure you want to continue connecting (yes/no)?</code><br>输入yes，成功后会看到<br><code>Hi xxx! You&#39;ve successfully authenticated, but GitHub does not provide shell access.</code><br>然后进行配置<br><code>$ git config --global user.name &quot;username&quot; //github用户名</code><br><code>$ git config --global user.email  &quot;xxx@xxx.com&quot; //github注册邮箱</code></p>
-<h4 id="配置Hexo"><a href="#配置Hexo" class="headerlink" title="配置Hexo"></a>配置Hexo</h4><p>在安装Hexo的文件夹下进行Hexo的初始化<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init</span><br></pre></td></tr></table></figure></p>
-<p>执行该命令后文件夹会新增Hexo的核心文件</p>
-<p><a href="https://hexo.io/zh-cn/docs/commands.html" target="_blank" rel="noopener">Hexo指南</a></p>
+<h3 id="对象类实现Parcelable接口"><a href="#对象类实现Parcelable接口" class="headerlink" title="对象类实现Parcelable接口"></a>对象类实现Parcelable接口</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">public class User implements Parcelable &#123;</span><br><span class="line">    private int  userId;</span><br><span class="line">    private String userName;</span><br><span class="line">    private String sex;</span><br><span class="line">    private Book book;</span><br><span class="line"></span><br><span class="line">    public User(int userId, String userName, String sex, Book book) &#123;</span><br><span class="line">        this.userId = userId;</span><br><span class="line">        this.userName = userName;</span><br><span class="line">        this.sex = sex;</span><br><span class="line">        this.book = book;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public int describeContents() &#123;</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	//序列化</span><br><span class="line">    pbulic void writeToParcel(Parcel out, int flags) &#123;  //flags一般都为0</span><br><span class="line">        out.writeInt(userId);</span><br><span class="line">        out.writeString(userName);</span><br><span class="line">        out.writeString(sex);</span><br><span class="line">        out.writeParcelable(book, flags);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	//反序列化</span><br><span class="line">    private User(Parcel in)&#123;</span><br><span class="line">        userId = in.ReadInt();</span><br><span class="line">        userName = in.ReadString();</span><br><span class="line">        sex = in.ReadString();</span><br><span class="line">		//由于book是另一个可序列化对象，所以反序列化需要传递当前线程的上下文类加载器，否则会报无法找到类的错误</span><br><span class="line">        book = in.ReadParcelable(Thread.currentThread().getContextClassLoader());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public final static Parcelable.Creator&lt;User&gt; CREATOR = new Parcelable.Creator&lt;User&gt;() &#123;</span><br><span class="line">        public User createFromParcel(Parcel in) &#123;</span><br><span class="line">            return new User(in);</span><br><span class="line">        &#125;</span><br><span class="line">        public User[] newArray(int size) &#123;</span><br><span class="line">            return new User[size];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
           
         
@@ -1444,6 +1709,10 @@
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
 
 
           </div>
@@ -1487,7 +1756,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1498,7 +1767,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1539,7 +1808,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
